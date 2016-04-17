@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>slide</title>
+	<link rel="stylesheet" href="css/base.css">
+	<script src="http://img.traveldaily.cn/script/jquery.js"></script>
+</head>
+<body>
+	<div class="wraper">
+		<div class="img">
+			<img src="css/img/1.jpg"/>
+		</div>
+		<div class="top"></div>
+		<div class="bottom"></div>
+	</div>
+
+	<script>
+	$(document).ready(function() {
+		var num = 0;
+		var arr = ["css/img/1.jpg","css/img/2.jpg","css/img/3.jpg","css/img/4.jpg","css/img/5.jpg","css/img/6.jpg"];
+		var img_src = null;
+		function slide(){
+			num++;
+			if(num > 5  || num < 0)
+			{
+				num = 0;
+			}
+			img_src = $(".img img").attr("src");
+			// debugger;
+			$(".top,.bottom").css({"background-image": "url(" + img_src + ")", "display": "block"})
+			$(".img img").attr("src",arr[num]);
+			$(".top").stop().animate({
+					top: -378
+				}, 500,function(){
+				$(".top").css({"display":"none","top":"0px"});
+			});
+			$(".bottom").stop().animate({
+					bottom: -378
+				}, 500,function(){
+				$(".bottom").css({"display":"none","bottom":"0px"});
+			});
+		}
+		var timer = setInterval(slide,1000);
+		$(".wraper").mouseover(function(){
+			clearInterval(timer);
+		});
+		$(".wraper").mouseout(function(){
+			timer = setInterval(slide,1000);
+		});
+		$(".wraper").click(function(){
+			slide();
+		});
+	});
+	</script></body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery-move</title>
+	<script src="http://img.traveldaily.cn/script/jquery.js"></script>
+</head>
+<body>
+	<script>
+	//用 jQuery 实现，页面中一个红色的方块从左上角开始，向右移动，到右边贴着屏幕边缘后停止。要求页面文档 body 节点中不直接写任何 HTML 代码，都用 jQuery 来做，移动部分不使用动画相关函数，自行修改位置来实现。
+		var oWidth = $(window).width(),
+			oSpeed = 0;
+		$("body").append("<div class='box'>");
+		$(".box").css({
+			"width": "100px",
+			"background":"#000",
+			"height" :"100px",
+			"position":"absolute",
+			"left":"0"
+		});
+
+		var timer = setInterval(function(){
+			if(parseInt($(".box").offset().left) >= oWidth-100)
+			{
+				clearInterval(timer);
+			}
+			oSpeed+=30;
+			if(10*oSpeed<oWidth-100){
+				$(".box").css("left",10*oSpeed +"px");
+			}
+			else{
+				$(".box").css("left",oWidth-100 +"px");
+			}
+		},100)
+	</script>
+</body>
+</html>

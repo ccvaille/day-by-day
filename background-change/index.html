@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<title>COOLFE</title>
+	<link rel="stylesheet" href="css/base.css">
+	<script type="text/javascript" src="http://img.traveldaily.cn/script/jquery.js"></script>
+
+</head>
+<body>
+	<div id="boxer" class="bg0">
+		<img src="css/img/head.png" alt="coolfe">
+		<h1>Sandy</h1>
+		<p>Write the code. Change the world.</p>
+		<a href="https://github.com/sandytt/" target="_blank">GitHub</a>
+		<a href="https://coding.net/u/coolfe/" target="_blank">Coding</a>
+		<a href="http://www.coolfe.com/" target="_blank">COOLFE</a>
+		<a href="http://weibo.com/277553227/" target="_blank">weibo</a>
+	</div>
+	<script>
+		
+		$(document).ready(function() {
+			var i=1;	
+			var j=0;
+			setInterval (function () {
+				j=i%4;	
+				// debugger;
+				$("#boxer").removeClass();
+				$("#boxer").addClass("bg" + j);	
+				i++;
+			},4000);	
+	
+
+		});
+		
+	</script>
+</body>
+</html>
