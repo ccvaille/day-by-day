@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<title>touch</title>
+	<script src="http://img.traveldaily.cn/script/jquery.js"></script>
+	<style>
+		html,body{
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding:0;
+		}
+		.boxer{
+			width: 100%;
+			height: 100%;
+			position: relative;
+			color: #fff;
+		}
+		.head{
+			position: fixed;
+			height: 50px;
+			width: 100%;
+			top: 0;
+			background: #9C8D8D;
+			-wekit-transition : top 2s ;
+			-moz-transition : top 2s ;
+			-ms-transition : top 2s ;
+			-o-transition : top 2s ;
+			transition : top 2s ;
+		}
+		.wrapper{
+			width: 100%;
+			height: 100%;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		.wrapper li{
+			width: 100%;
+			height: 100%;
+		}
+		.wrapper li:nth-child(1){
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="boxer">
+		<div class="head">固定固定固定固定</div>
+		<ul class="wrapper" id="wrapper">
+			<li></li>
+		</ul>
+	</div>
+	<script>
+		 var arry = [];
+		 $(".wrapper li").each(function(index){
+	  		 arry.push($(this).offset().top);
+		 })
+		function mFull(y) {
+                if (y < -20) {
+                    // $("html, body").stop().animate({
+                    //     scrollTop: arry[i]
+                    // }, 300);
+					$(".head").css("top","-50px");
+					$("title").html("shang")
+                }
+                else if (y > 20) {
+                    // $("html, body").stop().animate({
+                    //     scrollTop: 0
+                    // }, 300);
+					$(".head").css("top","0px");
+					$("title").html("xia")
+                }
+            }
+            var obj = document.getElementById("wrapper");
+		 var StartY = 0,
+				  y = 0;
+            obj.ontouchstart = function (e) {
+                var touch = e.targetTouches[0];
+                   StartY = touch.pageY;
+                obj.ontouchmove = function (e) {
+                    e.preventDefault();
+                    var touch = e.targetTouches[0];
+                    y = touch.pageY - StartY;
+                }
+                obj.ontouchend = function (e) {
+                    mFull(y);
+                    obj.ontouchmove = null;
+                }
+            }
+	 </script>
+</body>
+</html>
