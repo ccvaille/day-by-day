@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tab</title>
+	<script src="http://img.traveldaily.cn/script/jquery.js"></script>
+	<style>
+	.boxer{
+		width: 480px;
+		margin: 0 auto;
+		background: #C55353;
+	}
+		ul {
+	  font-size: 0;
+	  position: relative;
+	  padding: 0;
+	  width: 480px;
+	  margin-top: 40px;
+	  margin-bottom: 10px;
+	}
+	li {
+	  display: inline-block;
+	  width: 160px;
+	  height: 60px;
+	  background: #f64d4d;
+	  font-size: 16px;
+	  text-align: center;
+	  line-height: 60px;
+	  color: #fff;
+	  position: relative;
+	  overflow: hidden;
+	  cursor: pointer;
+	  font-family: Arial;
+	}  
+	.slider {
+	  display: block;
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  height: 4px;
+	  background: #4FC2E5;
+	  transition: all 0.5s;
+	}
+	.text{
+		position: relative;
+		height: 50px;
+	}
+	.text p{
+		width: 480px;
+		background: #f64d4d;
+		height: 50px;
+		color: #fff;
+		margin: 0;
+		text-align: center;
+		line-height: 50px;
+		opacity: 0;
+		transition: all 0.5s;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.text .act{
+		opacity: 1;
+	}        
+	.ripple {
+	  width: 0;
+	  height: 0;
+	  border-radius: 50%;
+	  background: rgba(255, 255, 255, 0.4);
+	  -webkit-transform: scale(0);
+	  -ms-transform: scale(0);
+	  transform: scale(0);
+	  position: absolute;
+	  opacity: 1;
+	}
+	.rippleEffect {
+	  -webkit-animation: ripple .6s linear;
+	  animation: ripple .6s linear;
+	}
+	@-webkit-keyframes ripple 
+	{  100% {
+	   -webkit-transform: scale(2);
+	   transform: scale(2);
+	   opacity: 0;
+	  }
+	}
+	@keyframes ripple 
+	{  100% {
+	   -webkit-transform: scale(2);
+	   transform: scale(2);
+	   opacity: 0;
+	  }
+	}            
+	      
+	</style>
+</head>
+<body>
+	<div class="boxer">
+		<ul>
+			<li>ONE</li>
+			<li>TWO</li>
+			<li>THREE</li>
+			<li class="slider"></li>
+		</ul>
+		<div class="text">
+			<p class="act">1</p>
+			<p>2</p>
+			<p>3</p>
+		</div>
+	</div>
+
+	<script>
+		
+		  $("ul li").click(function(e) {
+			  if ($(this).hasClass('slider')) {
+			    return false;
+			  }
+			  var tabItem = $(this).index();
+			  var howFar = 160 * tabItem;
+			  $(".slider").css({
+			    left: howFar + "px"
+			  });
+			  $(".text p").eq(tabItem).addClass('act').siblings().removeClass('act');
+			  // $(".ripple").remove();
+
+			  var X = $(this).offset().left,
+			      Y = $(this).offset().top,
+			      buttonWidth = $(this).width(),
+			      buttonHeight = $(this).height();
+
+			  $(this).prepend("<span class='ripple'></span>");
+
+			  if (buttonWidth >= buttonHeight) {
+			    buttonHeight = buttonWidth;
+			  } else {
+			    buttonWidth = buttonHeight;
+			  }
+
+			  var x = e.pageX - X - buttonWidth / 2;
+			  var y = e.pageY - Y - buttonHeight / 2;
+
+			  $(".ripple").css({
+			    width: buttonWidth,
+			    height: buttonHeight,
+			    top: y + 'px',
+			    left: x + 'px'
+			  }).addClass("rippleEffect");
+		  
+		});                
+	</script>
+</body>
+</html>
