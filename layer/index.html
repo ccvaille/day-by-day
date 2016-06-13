@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>layer(2016-06-03)</title>
+	<script src="http://www.coolfe.com/jquery.js"></script>
+	<style>
+		.before-layer {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, 0.3);
+			transform: scale(0);
+		}
+		.popuper {
+		  	background: #fff;
+		  	width: 300px;
+		  	height: 300px;
+		  	line-height: 300px;
+			border-radius: 3px;
+		  	box-shadow: rgba(0,0,0,0.1) 1px 1px 6px;
+		  	position: absolute;
+		  	z-index: 2;
+			top: 50%;
+			left: 50%;
+			margin-left: -150px;
+			margin-top: -150px;
+			text-align: center;
+			transform: scale(0);
+		}
+		.show {
+			transform: scale(1);
+			transition: transform .5s;
+		}
+		
+	</style>
+</head>
+<body>
+	<input type="button" value="before-btn" id="before-btn">
+	<div class="before-layer"></div>
+	<div class="popuper" id="popuper">popuper-text</div>
+	<script>
+		$("#before-btn").click(function(){
+			$(".before-layer,.popuper").addClass('show');
+			$("#before-btn").hide(200);
+		})
+		var layer = document.getElementById("popuper");
+		function drag(obj) {
+			obj.onmousedown = function (event) {
+
+				var ev = event || window.event;
+				var x = ev.clientX - obj.offsetLeft - 150;
+				var y = ev.clientY - obj.offsetTop - 150;
+
+				document.onmousemove = function (event) {
+					// debugger;
+					ev = event || window.event;
+					obj.style.left = ev.clientX - x + "px";
+					obj.style.top = ev.clientY - y + "px";
+
+				}
+				document.onmouseup = function () {
+					document.onmousemove = null;
+				}
+			}
+		}
+		drag(layer);
+		
+	</script>
+</body>
+</html>
