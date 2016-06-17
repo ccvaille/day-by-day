@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>layer(2016-06-03)</title>
+	<script src="http://www.coolfe.com/jquery.js"></script>
+	<style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .clearfix:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+        }
+        .clearfix {
+            zoom: 1;
+        }
+        ul li {
+            list-style: none;
+        }
+        #before-btn {
+            margin: 10px;
+        }
+		.before-layer {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, 0.3);
+			transform: scale(0);S
+		}
+		.popuper {
+		  	background: #fff;
+		  	width: 300px;
+		  	height: 300px;
+			border-radius: 3px;
+		  	box-shadow: rgba(0,0,0,0.1) 1px 1px 6px;
+		  	position: absolute;
+		  	z-index: 2;
+			top: 50%;
+			left: 50%;
+            text-align: center;
+			margin-left: -150px;
+			margin-top: -150px;
+			transform: scale(0);
+            transition: transform .5s;
+/*            cursor: move;*/
+		}
+        .close {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            font-style: normal;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            cursor: pointer;
+        }
+        .popuper-container {
+            text-align: left;
+            margin: 20px;
+            position: relative;
+            
+        }
+        .input-select {
+            width: 256px;
+            height: 20px;
+            border: 1px solid #e5e5e5 ;
+            padding: 2px;
+            font-size: 14px;
+            line-height: 20px;
+        }
+		.show {
+			transform: scale(1);
+		}
+        .city-items {
+            border: 1px solid #ddd;
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            display: none;
+        }
+        .city-items li:hover {
+            background: blue;
+            color: #fff;
+            cursor: pointer;
+        }
+        .tag-name span {
+            display: inline-block;
+            background: #ddd;
+            color: #222;
+            font-size: 12px;
+            padding: 5px;
+            margin: 5px;
+        }
+         .tag-name i {
+             font-style: normal;
+             display: inline-block;
+             margin-left: 5px;
+             cursor: pointer;
+         }
+         .tag-name i:hover {
+             background: red;
+         }
+         .all-btn {
+            width: 200px;
+            height: 50px;
+            background: #000;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+         }
+		
+	</style>
+</head>
+<body>
+	<input type="button" value="before-btn" id="before-btn">
+    <div class="all-tag"></div>
+	<div class="before-layer"></div>
+	<div class="popuper" id="popuper">
+         <i class="close">X</i>
+        <div class="popuper-container">
+            <div class="city-container">
+                <input type="text" value="选择城市" class="input-select" readonly="readonly">
+                <ul class="city-items"> 
+                </ul>
+                <p>你选择的城市是：<span class="city-name"></span></p>
+                <input type="text" placeholder="请输入你对城市的印象" id="tag">
+                <input type="button" value="确定" id="tag-btn">
+                <p class="tag-name"></p>
+                <div class="all-btn">
+                    读取所有的印象
+                </div>
+
+            </div>
+        </div>
+    </div>
+	<script>
+    
+        var one = [],
+            two = [],
+            three = [];
+        var array = [{one},{two},{three}];
+         var li = 0;
+         var city =["广州","深圳", "上海"];
+
+
+         $(document).ready(function(){
+            for (var i = 0; i < city.length; i++) {
+                $(".city-items").append('<li val="'+ i +'">'+ city[i] +'</li>');
+            }
+         })
+
+         $(".before-layer").show();
+         $(".before-layer,.popuper").addClass('show');
+
+		$("#before-btn").click(function(){
+            $(".before-layer").show();
+			$(".before-layer,.popuper").addClass('show');
+		})
+
+        $(".close").click(function(){
+            $("#popuper").removeClass("show");
+            $(".before-layer").hide();
+        })
+
+        //ul li 点击
+        $(".input-select").on("click",function(e){
+            $(".city-items").toggle();
+            e.stopPropagation();
+        })
+
+        //ul点击
+        $(".city-items").on("click","li",function(){
+            $(".input-select").val($(this).html());
+            $(".city-name").html($(this).html());
+            $(".city-items").toggle();
+            li = $(this).attr("val");
+                $(".tag-name span").remove();
+            if (li == 0) {
+                tag(one);
+            }
+           if (li == 1) {
+                tag(two);
+            }
+           if (li == 2) {
+                tag(three);
+            }
+        })
+
+        
+        //删掉tag
+        $(".tag-name").on("click","i",function(){
+            $(this).parent().remove();
+        })
+        
+        //添加印象
+        $("#tag-btn").click(function(){
+           if (!(li == 0 || li == 1 || li == 2)){
+                alert("请先选择城市……")
+            }
+            if ($("#tag").val().length == 0)
+            {
+                alert("请输入城市印象……");
+            }
+           else if (li == 0) {
+                // console.log("广州");
+                tag(one);
+
+            }
+           else if (li == 1) {
+                // console.log("深圳");
+                tag(two);
+            }
+           else if (li == 2) {
+                // console.log("上海");
+                tag(three);
+            }
+        })
+
+        function tag(e){
+            if (!($("#tag").val().length == 0))
+            {
+                e.push($("#tag").val());
+            }
+            $(".tag-name span").remove();
+             for(var i in e){ 
+                $(".tag-name").append("<span>"+  e[i] + "<i>X</i></span>");
+             }    
+            $("#tag").val("");
+        }
+
+        //输出全部城市印象
+        $(".all-btn").click(function() {
+            $(".before-layer").hide();
+            $(".before-layer,.popuper").removeClass('show');
+                 for (var i = 0; i < city.length; i++) {
+                     $(".all-tag").append('<p>'+ city[i] + array[i] +'</p>');
+                }
+
+            
+             console.log(array[0][0]);
+            
+        });
+    
+        //layer 拖拽
+		var layer = document.getElementById("popuper");
+		function drag(obj) {
+			obj.onmousedown = function (event) {
+				var ev = event || window.event;
+				var x = ev.clientX - obj.offsetLeft - 150;
+				var y = ev.clientY - obj.offsetTop - 150;
+
+				document.onmousemove = function (event) {
+					// debugger;
+					ev = event || window.event;
+					obj.style.left = ev.clientX - x + "px";
+					obj.style.top = ev.clientY - y + "px";
+
+				}
+				document.onmouseup = function () {
+					document.onmousemove = null;
+				}
+			}
+		}
+		drag(layer);
+		
+	</script>
+</body>
+</html>
