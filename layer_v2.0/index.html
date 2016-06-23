@@ -220,7 +220,7 @@
     $(document).ready(function() {
         // console.log(city["1"]);
         // console.log(city.length);
-        for (var i = 1; i < 4; i++) {
+        for (var i in city) {
             $(".city-items").append('<li val="' + i + '">' + city[i]["name"] + '</li>');
         }
     })
@@ -250,15 +250,6 @@
         $(".city-items").toggle();
         li = $(this).attr("val");
         $(".tag-name span").remove();
-        //  if (li == 0) {
-        //      tag(one);
-        //  }
-        // if (li == 1) {
-        //      tag(two);
-        //  }
-        // if (li == 2) {
-        //      tag(three);
-        //  }
     })
 
 
@@ -274,7 +265,8 @@
         }
         if ($("#tag").val().length == 0) {
             alert("请输入城市印象……");
-        } else if (li == 1) {
+        } 
+        else if (li == 1) {
             get(1);
 
         } else if (li == 2) {
@@ -282,6 +274,9 @@
         } else if (li == 3) {
             get(3);
         }
+        //  for (var i in city) {
+        //     get(i);
+        // }
     }
 
     $("#tag-btn").click(function() {
@@ -310,18 +305,7 @@
         if (!($("#tag").val().length == 0)) {
             city[key]['yinxiang'].push($("#tag").val());
         }
-
         Span.remove();
-
-        // for (var i = 0; i < 10; i++) {
-        // if (city[key]['yinxiang'][i] == "undefined") {
-        //     $(".tag-name").remove("<span>" + city[key]['yinxiang'][i] + "<i>X</i></span>");
-        // } 
-        // else {
-        //     $(".tag-name").append("<span>" + city[key]['yinxiang'][i] + "<i>X</i></span>");
-        // }
-        // }
-
         for (var t in city[key]['yinxiang']) {
             $(".tag-name").append("<span>" + city[key]['yinxiang'][t] + "<i>X</i></span>");
         }
@@ -332,9 +316,16 @@
     $("#all-btn").click(function() {
         $(".before-layer").hide();
         $(".before-layer,.popuper").removeClass('show');
-        for (var i = 1; i < 4; i++) {
-            // console.log(city[i]["yinxiang"].length);
-            $(".all-tag").append("<p>" + "你对" + city[i]["name"] + "的印象:" + city[i]["yinxiang"] + "</p>");
+        // for (var i = 0; i < 10; i++) {
+        // if (city[key]['yinxiang'][i] == "undefined") {
+        //     $(".tag-name").remove("<span>" + city[key]['yinxiang'][i] + "<i>X</i></span>");
+        // } 
+        // else {
+        //     $(".tag-name").append("<span>" + city[key]['yinxiang'][i] + "<i>X</i></span>");
+        // }
+        // }
+        for (var d in city) {
+            $(".all-tag").append("<p>" + "你对" + city[d]["name"] + "的印象:" + city[d]["yinxiang"] + "</p>");
         }
     });
 
