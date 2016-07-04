@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>先行者-弹窗组件</title>
+    <title>弹窗组件</title>
     <script src="http://www.coolfe.com/jquery.js"></script>
     <style>
     * {
@@ -131,15 +131,18 @@
     </div>
     <img src="img/bg.jpg" alt="">
     <script>
+    function id(id) {
+        return document.getElementById(id);
+    }
     function layer() {
         _this = this;
     }
     layer.prototype = {
         init: function() {
-            iButton = document.getElementById("button");
-            iClose = document.getElementById("close");
-            oLayer = document.getElementById("layer");
-            oLayer_bg = document.getElementById("bg-layer");
+            iButton = id("button");
+            iClose = id("close");
+            oLayer = id("layer");
+            oLayer_bg = id("bg-layer");
             _this.drag(oLayer);
             _this.show();
             _this.hide();
